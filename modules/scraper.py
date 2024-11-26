@@ -68,14 +68,18 @@ class YoutubeTranscriber:
         :param tag: Identifier for the output file name.
         :return: DataFrame created from the input data.
         """
-        df = pd.DataFrame(data).replace("\n", " ", regex=True)
-        if "published_at" in df.columns:
-            df = df.sort_values(["published_at"], ascending=False).reset_index(drop=True)
-        else:
-            self.logger.warning("Warning: 'published_at' column is missing. DataFrame will not be sorted by this column.")
-        df = df.drop_duplicates()
-        df.to_csv(f"{self.tables_dir}/{self.channel_handle}_{tag}.csv", index=False, encoding="utf-8")
-        return df
+        try:
+            df = pd.DataFrame(data).replace("\n", " ", regex=True)
+            if "published_at" in df.columns:
+                df = df.sort_values(["published_at"], ascending=False).reset_index(drop=True)
+            else:
+                self.logger.warning("Warning: 'published_at' column is missing. DataFrame will not be sorted by this column.")
+            df = df.drop_duplicates()
+            df.to_csv(f"{self.tables_dir}/{self.channel_handle}_{tag}.csv", index=False, encoding="utf-8")
+            return df
+        except Exception as e:
+            self.logger.error(f"Error creating DataFrame: {e}")
+            raise
 
     def _store_channel_info(
             self,
