@@ -1,0 +1,27 @@
+# all hidden files and directories
+.*
+!.gitignore
+!.python-version
+
+# directories
+__pycache__
+data/
+output/
+uploads/
+
+# files
+*.code-workspace
+*.db
+*.gguf
+*.in
+*.ipynb
+*.json
+*.log
+*.mkv
+*.mp3
+*.mp4
+*.sh
+*.sqbpro
+*.wav
+*.webm
+*.zip

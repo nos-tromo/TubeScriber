@@ -1,0 +1,15 @@
+[project]
+name = "tubescriber"
+version = "0.1.0"
+description = "TubeScriber is a tool to download and store information from YouTube channels."
+authors = [
+    { name = "nos-tromo" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "google-api-python-client>=2.154.0",
+    "google-auth>=2.36.0",
+    "pandas>=2.2.3",
+    "python-dotenv>=1.0.1",
+    "youtube-transcript-api>=0.6.3",
+]
