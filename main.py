@@ -70,14 +70,14 @@ def _create_directories(channel_handle: str) -> tuple[Path, Path, Path]:
     return tables_dir, transcripts_dir, db_dir
 
 
-def _get_yt_transcripts(
+def _get_yt_data(
         api_key: str,
         channel_handle: str,
         table_dir: Path,
         transcripts_dir: Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
-    Retrieve YouTube data for the given channel handle, language code, and API key.
+    Retrieve YouTube data for the given channel handle, and API key.
 
     :param api_key: API key.
     :param channel_handle: YouTube channel handle.
@@ -85,15 +85,15 @@ def _get_yt_transcripts(
     :param transcripts_dir: Data directory.
     :return: A tuple of DataFrames containing information about the channel, the videos, and the transcripts.
     """
-    youtube_transcriber = YoutubeTranscriber(
+    youtube_scraper = YoutubeTranscriber(
         api_key=api_key,
         channel_handle=channel_handle,
         tables_dir=table_dir,
         transcripts_dir=transcripts_dir
     )
 
-    channel_df = youtube_transcriber.get_channel_info()
-    videos_df, transcripts_df = youtube_transcriber.get_transcripts()
+    channel_df = youtube_scraper.get_channel_info()
+    videos_df, transcripts_df = youtube_scraper.get_transcripts()
 
     return channel_df, videos_df, transcripts_df
 
@@ -135,7 +135,7 @@ def main() -> None:
             api_key = _get_api_key()
             tables_dir, transcripts_dir, db_dir = _create_directories(channel)
 
-            channel_df, videos_df, transcripts_df = _get_yt_transcripts(
+            channel_df, videos_df, transcripts_df = _get_yt_data(
                 api_key=api_key,
                 channel_handle=channel,
                 table_dir=tables_dir,
