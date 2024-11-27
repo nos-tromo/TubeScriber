@@ -129,10 +129,10 @@ def main() -> None:
     try:
         channels = sys.argv[1:] if len(sys.argv) > 1 else input("Enter YouTube channel handles (comma-separated): ").split(",")
         channels = [channel.strip() for channel in channels]
+        api_key = _get_api_key()
+
         for channel in channels:
             logging.info(f"Processing channel: {channel}")
-
-            api_key = _get_api_key()
             tables_dir, transcripts_dir, db_dir = _create_directories(channel)
 
             channel_df, videos_df, transcripts_df = _get_yt_data(
@@ -148,7 +148,6 @@ def main() -> None:
                 videos_df=videos_df,
                 transcripts_df=transcripts_df
             )
-
             logging.info(f"Finished processing channel: {channel}")
 
     except Exception as e:
