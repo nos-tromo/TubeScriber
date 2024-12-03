@@ -222,6 +222,7 @@ class YoutubeTranscriber:
             return ((likes + comments) / views) * 100
         except Exception as e:
             self.logger.error(f"Error calculating engagement rate: {e}", exc_info=True)
+            raise
 
     def _store_data(self) -> tuple[pd.DataFrame, pd.DataFrame]:
         """
